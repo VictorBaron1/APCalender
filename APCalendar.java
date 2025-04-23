@@ -30,7 +30,15 @@ public class APCalendar
     * ..., and 6 denotes Saturday.
     */
     private static int firstDayOfYear(int year)
-    { /* implementation not shown */ }
+    { 
+        int day = 1;
+        for(int i=1; i < year; i++)
+        {
+            day++;
+            if (isLeapYear(i)) day++;
+        }
+        return day % 7;
+    }
    
     /** Returns n, where month, day, and year specify
     * the nth day of the year. Returns 1 for January 1
@@ -39,7 +47,23 @@ public class APCalendar
     * year is a valid date.
     */
     private static int dayOfYear(int month, int day, int year)
-    { /* implementation not shown */ }
+    {
+        int days =0;
+        if (month > 1) days += 31;
+        if (month > 2) days += 28;
+        if (isLeapYear(year)) days++;
+        if (month > 3) days += 31;
+        if (month > 4) days += 30;
+        if (month > 5) days += 31;
+        if (month > 6) days += 30;
+        if (month > 7) days += 31;
+        if (month > 8) days += 31;
+        if (month > 9) days += 30;
+        if (month > 10) days += 31;
+        if (month > 11) days += 30;
+        days += day;
+        return days;
+    }
    
     /** Returns the value representing the day of the week for
     * the given date (month, day, year), where 0 denotes Sunday,
@@ -48,7 +72,10 @@ public class APCalendar
     * year is a valid date.
     */
     public static int dayOfWeek(int month, int day, int year)
-    { /* to be implemented in part (b) */ }
+    {
+        int days = dayOfYear(month, day, year) % 7;
+        return firstDayOfYear(year) + days - 1;
+    }
    
     // There may be instance variables, constructors,
     // and other methods not shown.
